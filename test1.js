@@ -82,10 +82,11 @@ cube.position.x = 7;
 // bullet2.position.x = 7;
 // bullet.position.y = -3;
 
-camera.position.y = 8;
-camera.position.z = 8;
+// camera.position.y = 8;
+// camera.position.z = 8;
 // camera.position.y = -10;
-// camera.position.y = 0;
+// camera.position = cube.position;
+// camera.position.y = cube.position + 2;
 
 // ======>> End of Modifing positions
 
@@ -95,16 +96,16 @@ var firing = false;
 window.onkeydown = function(d){
   console.log(d.keyCode);
   if(d.keyCode === 38){
-    cube.position.z--;
+    cube.position.x--;
   }
   if(d.keyCode === 40){
-    cube.position.z++;
-  }
-  if(d.keyCode === 39){
     cube.position.x++;
   }
+  if(d.keyCode === 39){
+    cube.position.z--;
+  }
   if(d.keyCode === 37){
-    cube.position.x--;
+    cube.position.z++;
   }
   if(d.keyCode === 67){
       var counter = 0;
@@ -152,12 +153,16 @@ function render() {
   // camera.position.z = Math.cos(timer) * 10;
   // camera.position.x = Math.sin(timer) * 10;
   directionalLight.position.set(-camera.position.x, camera.position.y, camera.position.z);
+  camera.position.x = cube.position.x - 2;
+  camera.position.y = cube.position.y + 3;
+  camera.position.z = cube.position.z - 2;
 
+  // camera.rotation.x += ( mouseX - camera.position.x ) * 0.002;
+  // camera.rotation.y += ( mouseY - camera.position.y ) * 0.002;
 
-  camera.position.x += ( mouseX - camera.position.x ) * 0.002;
-  camera.position.y += ( mouseY - camera.position.y ) * 0.002;
-
-  camera.lookAt(scene.position)
+  // camera.lookAt(scene.position)
+  // camera.lookAt({x: cube.position.x - 10, y: cube.position.y + 5, z: cube.position.z})
+  camera.lookAt({x: cube.position.x - 10, y: cube.position.y + 5, z: cube.position.z})
   renderer.render( scene, camera );
 }
 render();
